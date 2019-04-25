@@ -19,7 +19,7 @@ all the files (all wheels and sources) for installation.
 
 Installation
 ============
-It is recommended to use the latest version of pip (19.x) when using pip-downloader.
+It is recommended to use the latest version of pip (currently - 19.1) when using pip-downloader.
 
 .. code:: bash
 
