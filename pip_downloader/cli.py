@@ -3,8 +3,7 @@ import sys
 
 import click
 
-from pip_downloader.engine import (
-    resolve_packages, create_candidates, resolve_candidates, download_link)
+from pip_downloader.engine import resolve_packages, fetch_all_links, download_link
 
 
 @click.group()
@@ -24,10 +23,12 @@ def list_command(packages, platform=None, python=None):
     Fetch information about the packages that are provided.
     Can be thought of as a dry-run for the actual download.
     """
-    norm_packages = resolve_packages(packages)
-    candidates = create_candidates(norm_packages)
-    for candidate in candidates:
-        print(candidate.project, candidate.version)
+    resolved_packages = resolve_packages(packages)
+    for pkg_name, pkg_version in resolved_packages:
+        print('Found', pkg_name, pkg_version, '...')
+        links = fetch_all_links(pkg_name, pkg_version)
+        for ilink, link in enumerate(links):
+            print(' -', ilink + 1, '/', len(links), '-', link.filename)
 
 
 @main.command(name='download', short_help='Download required packages')
@@ -45,13 +46,14 @@ def download_command(packages, dest, platform=None, python=None):
     """
     Download all available files for the packages provided.
     """
-    norm_packages = resolve_packages(packages)
-    candidates = create_candidates(norm_packages)
-    norm_candidates = resolve_candidates(candidates)
+    resolved_packages = resolve_packages(packages)
     os.makedirs(dest, exist_ok=True)
-    for candidate in norm_candidates:
-        print('Downloading', candidate.project, candidate.version, candidate.location.filename, '...')
-        download_link(candidate.location, dest)
+    for pkg_name, pkg_version in resolved_packages:
+        print('Found', pkg_name, pkg_version, '...')
+        links = fetch_all_links(pkg_name, pkg_version)
+        for ilink, link in enumerate(links):
+            print(' -', ilink + 1, '/', len(links), '-', link.filename)
+            download_link(link, dest)
 
 
 if __name__ == '__main__':

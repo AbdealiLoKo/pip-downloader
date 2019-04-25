@@ -39,21 +39,24 @@ else:
     def RequirementTracker():  # noqa: N802
         yield
 
+
 RequirementSet = from_pip_import('req.req_set.RequirementSet')
 Wheel = from_pip_import('wheel.Wheel')
 TempDirectory = from_pip_import('utils.temp_dir.TempDirectory')
 InstallRequirement = from_pip_import('req.req_install.InstallRequirement')
 PyPI = from_pip_import('models.index.PyPI')
+Link = from_pip_import('models.link.Link')
 PipSession = from_pip_import('download.PipSession')
 src_prefix = from_pip_import('locations.src_prefix')
 RequirementPreparer = from_pip_import('operations.prepare.RequirementPreparer')
 Resolver = from_pip_import('resolve.Resolver')
 PackageFinder = from_pip_import('index.PackageFinder')
 PipSession = from_pip_import('download.PipSession')
-Search = from_pip_import('index.Search')
-_download_http_url = from_pip_import('download._download_http_url')
-from pip._vendor.packaging.utils import canonicalize_name  # noqa
-
+_egg_info_matches = from_pip_import('index._egg_info_matches')
+SUPPORTED_EXTENSIONS = from_pip_import('utils.misc.SUPPORTED_EXTENSIONS')
+WHEEL_EXTENSION = from_pip_import('utils.misc.WHEEL_EXTENSION')
+InvalidWheelFilename = from_pip_import('exceptions.InvalidWheelFilename')
+from pip._vendor.packaging.utils import canonicalize_name  # noqa: F401
 
 # pip 18.1 has refactored InstallRequirement constructors use by pip-tools.
 if pkg_resources.parse_version(pip.__version__) < pkg_resources.parse_version('18.1'):
