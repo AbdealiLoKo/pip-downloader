@@ -14,7 +14,7 @@ setup(
     version=version_ns['__version__'],
     py_modules=find_packages(include=['pip_downloader', 'pip_downloader.*']),
     description='Download packages from pip for offline usage.',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     license='MIT',
     author='AbdealiJK',
     author_email='abdealikothari@gmail.com',
