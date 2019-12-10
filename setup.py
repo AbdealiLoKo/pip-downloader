@@ -12,7 +12,7 @@ with open('pip_downloader/__init__.py') as f:
 setup(
     name='pip-downloader',
     version=version_ns['__version__'],
-    py_modules=find_packages(include=['pip_downloader', 'pip_downloader.*']),
+    packages=find_packages(include=['pip_downloader', 'pip_downloader.*']),
     description='Download packages from pip for offline usage.',
     long_description=open('README.rst').read(),
     license='MIT',
